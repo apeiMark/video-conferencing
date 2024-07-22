@@ -35,6 +35,13 @@ export default defineConfig({
           return path.replace(/^\/api/, '')
         }
       },
+      '/link-api': {
+        target: 'http://localhost:8001',
+        changeOrigin: true,
+        rewrite: path => {
+          return path.replace(/^\/api/, '')
+        }
+      },
       '/socket.io': {
         target: 'http://localhost:3000',
         ws: true,

@@ -23,6 +23,28 @@
 import { computed, nextTick, onMounted, reactive, Ref, ref, watch } from 'vue';
 import UserIcon from '/@/components/UserIcon.vue';
 
+const generateUniqueId = (): string => {
+  const randomDigit = () => Math.floor(Math.random() * 10);
+  const timestamp = Date.now(); // 获取当前时间戳
+  const randPart = () => Array.from({ length: 3 }, randomDigit).join('');
+  
+  return `${randPart()}-${randPart()}-${randPart()}`;
+}
+
+
+const nickName = ref<string | null>(null);
+
+onMounted(() => {
+  // 获取 URL 参数
+  const urlParams = new URLSearchParams(window.location.search);
+  userInfo.username = urlParams.get('nickName');
+  console.log('Nick Name:', userInfo.username);
+
+   // 设置 roomname 的初始值
+   userInfo.roomname = generateUniqueId();
+  console.log('Generated Room Name:', userInfo.roomname);
+});
+
 const props = defineProps<{
   stream: MediaStream | null | undefined;
 }>()
